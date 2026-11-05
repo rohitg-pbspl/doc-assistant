@@ -1,6 +1,11 @@
-def main():
-    print("Hello from doc-assistant!")
+from fastapi import FastAPI
+
+from app.routers import notes
+
+app = FastAPI(title="doc-assistant")
+app.include_router(notes.router)
 
 
-if __name__ == "__main__":
-    main()
+@app.get("/health")
+def health() -> dict[str, str]:
+    return {"status": "ok"}
